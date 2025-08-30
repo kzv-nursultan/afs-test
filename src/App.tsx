@@ -1,43 +1,9 @@
 import "./App.css";
-import { Button } from "./components/Button/Button";
-
-const PlusIcon = () => (
-  <svg
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M1.8999 8.00002C1.8999 7.66865 2.16853 7.40002 2.4999 7.40002H13.4999C13.8313 7.40002 14.0999 7.66865 14.0999 8.00002C14.0999 8.3314 13.8313 8.60002 13.4999 8.60002H2.4999C2.16853 8.60002 1.8999 8.3314 1.8999 8.00002Z"
-      fill="#3B3B3B"
-    />
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M7.9999 1.90002C8.33127 1.90002 8.5999 2.16865 8.5999 2.50002V13.5C8.5999 13.8314 8.33127 14.1 7.9999 14.1C7.66853 14.1 7.3999 13.8314 7.3999 13.5V2.50002C7.3999 2.16865 7.66853 1.90002 7.9999 1.90002Z"
-      fill="#3B3B3B"
-    />
-  </svg>
-);
 
 function App() {
   return (
     <>
-      // Filled
-      <Button variant="filled" label="Label" />
-      <Button variant="filled" label="Label" icon={<PlusIcon />} />
-      // Outline
-      <Button variant="outline" label="Label" />
-      <Button variant="outline" label="Label" icon={<PlusIcon />} />
-      // Flattened
-      <Button variant="ghost" label="Label" />
-      <Button variant="ghost" label="Label" icon={<PlusIcon />} />
-      // Icon button
-      <Button variant="icon" ariaLabel="Delete" icon={<PlusIcon />} />
+      <h1>test task</h1>
     </>
   );
 }
