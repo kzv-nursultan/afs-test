@@ -1,11 +1,8 @@
 import "./App.css";
+import OrganizationDetailsPage from "./pages/OrganizationDetail";
 
 function App() {
-  return (
-    <>
-      <h1>test task</h1>
-    </>
-  );
+  return <OrganizationDetailsPage />;
 }
 
 export default App;

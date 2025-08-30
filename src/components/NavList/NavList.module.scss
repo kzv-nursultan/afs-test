@@ -1,0 +1,28 @@
+.nav-list {
+  display: grid;
+  gap: 12px;
+
+  &__item {
+    display: flex; align-items: center; gap: 10px;
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #e6e7ea;
+    background: #fff;
+    color: #3b3b3b;
+    font-weight: 600;
+    letter-spacing: .2px;
+    cursor: pointer;
+    transition: background-color .15s ease, border-color .15s ease;
+
+    &:hover { background: #f7f7f8; }
+    &--active {
+      background: #3b3b3b;
+      color: #fff;
+      border-color: #3b3b3b;
+    }
+  }
+
+  &__icon { display: inline-flex; }
+  &__label { white-space: nowrap; }
+}
