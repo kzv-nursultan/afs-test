@@ -4,8 +4,10 @@ import Rail from "../components/Rail/Rail";
 import Logo from "../icons/Logo";
 import Company from "../icons/Company";
 import Search from "../icons/Search";
-import { NavList } from "../components/NavList/NavList";
 import OrganizationDetailsPage from "../pages/OrganizationDetail";
+import Contractor from "../icons/Contractor";
+import Account from "../icons/Account";
+import { Sidebar } from "../components/Sidebar/Sidebar";
 
 // The app layout route: AppShell + Rail + Sidebar + Outlet
 
@@ -21,19 +23,23 @@ export const router = createBrowserRouter([
                 id: "org",
                 icon: <Company />,
                 ariaLabel: "Organizations",
-                active: true,
-                to: "org",
+                to: "/",
               },
-              { id: "search", icon: <Search />, ariaLabel: "Search", to: "" },
+              {
+                id: "search",
+                icon: <Search />,
+                ariaLabel: "Search",
+                to: "/search",
+              },
             ]}
           />
         }
         sidebar={
-          <NavList
+          <Sidebar
             items={[
-              { label: "Organizations", active: true },
-              { label: "Contractors" },
-              { label: "Clients" },
+              { label: "Organizations", icon: <Company /> },
+              { label: "Contractors", icon: <Contractor /> },
+              { label: "Clients", icon: <Account /> },
             ]}
           />
         }
@@ -42,9 +48,9 @@ export const router = createBrowserRouter([
       </AppShell>
     ),
     children: [
-      { index: true, element: <OrganizationDetailsPage /> },
+      { index: true, path: "/", element: <OrganizationDetailsPage /> },
 
-      { path: "*", element: <h1>Not found</h1> },
+      { path: "*", element: <h1>Page is not found</h1> },
     ],
   },
 ]);

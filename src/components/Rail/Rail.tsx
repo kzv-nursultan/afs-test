@@ -1,47 +1,64 @@
 import React from "react";
 import s from "./Rail.module.scss";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
+import Settings from "../../icons/Settings";
+import SignOut from "../../icons/SignOut";
 
 export type RailItem = {
   id: string;
   icon: React.ReactNode;
   ariaLabel: string;
   to: string;
-  active?: boolean;
-  onClick?: () => void;
 };
 
 type Props = {
-  logo?: React.ReactNode; // top logo (36x36 in your mock)
-  items: RailItem[]; // vertical nav items
-  footer?: React.ReactNode; // optional bottom area (e.g., settings)
+  logo?: React.ReactNode;
+  items: RailItem[];
 };
 
-export default function Rail({ logo, items, footer }: Props) {
+export default function Rail({ logo, items }: Props) {
+  const { pathname } = useLocation();
+
   return (
     <aside className={s["rail"]} aria-label="Primary app rail">
       {logo && <div className={s["rail__logo"]}>{logo}</div>}
 
       <nav className={s["rail__nav"]}>
-        {items.map((it) => (
-          <NavLink
-            key={it.id}
-            type="button"
-            to={it.to}
-            className={[
-              s["rail__link"],
-              it.active ? s["rail__link--active"] : "",
-            ].join(" ")}
-            aria-label={it.ariaLabel}
-            aria-current={it.active ? "page" : undefined}
-            onClick={it.onClick}
-          >
-            <span className={s["rail__icon"]}>{it.icon}</span>
-          </NavLink>
-        ))}
+        {items.map((it) => {
+          const isActive = pathname === it.to;
+          return (
+            <NavLink
+              key={it.id}
+              type="button"
+              to={it.to}
+              className={[
+                s["rail__link"],
+                isActive ? s["rail__link--active"] : "",
+              ].join(" ")}
+              aria-label={it.ariaLabel}
+              aria-current={isActive ? "page" : undefined}
+            >
+              <span className={s["rail__icon"]}>{it.icon}</span>
+            </NavLink>
+          );
+        })}
       </nav>
 
-      {footer && <div className={s["rail__footer"]}>{footer}</div>}
+      <div className={s["rail__footer"]}>
+        <span className={s["rail__separator"]} />
+        
+        <button className={s["rail__btn"]}>
+          <span className={s["rail__icon"]}>
+            <Settings />
+          </span>
+        </button>
+
+        <button className={s["rail__btn"]}>
+          <span className={s["rail__icon"]}>
+            <SignOut />
+          </span>
+        </button>
+      </div>
     </aside>
   );
 }

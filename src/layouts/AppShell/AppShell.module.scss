@@ -17,8 +17,8 @@
 
   &__side {
     background: $white;
-    border-right: 1px solid #eee;
-    padding: $space-16;
+    box-shadow: 4px 0px 16px 0px #00000014;
+    padding: 20px;
     position: sticky;
     top: 0;
     height: 100vh;
