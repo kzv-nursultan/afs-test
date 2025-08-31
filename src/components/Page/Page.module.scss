@@ -1,0 +1,35 @@
+/* Block */
+.page {
+  display: grid;
+  align-content: start;
+  gap: 16px;
+  overflow: auto;
+}
+
+/* Header */
+.page__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.page__title {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500; 
+  font-size: 28px;
+  line-height: 40px;
+  letter-spacing: 0.25px;
+  color: #000000cc;
+}
+
+.page__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.page__content {
+  display: grid;
+  gap: 16px;
+}
