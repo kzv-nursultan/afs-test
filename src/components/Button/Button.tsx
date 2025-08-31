@@ -1,6 +1,6 @@
 import s from "./Button.module.scss";
 
-type Variant = "filled" | "outline" | "ghost" | "icon";
+type Variant = "filled" | "outline" | "ghost" | "icon" | "filled-icon";
 type Size = "sm" | "md";
 
 export function Button({

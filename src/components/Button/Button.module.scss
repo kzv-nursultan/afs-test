@@ -5,14 +5,15 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;                        
-  padding: 16px 8px;                
+  gap: 12px;
+  padding: 10px 12px;
   border: 1px solid transparent;
-  border-radius: 16px;
+  border-radius: 8px;
   background: transparent;
-
-  font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-weight: 600;                  /* SemiBold */
+  position: relative;
+  font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial,
+    sans-serif;
+  font-weight: 600;
   font-size: 13px;
   line-height: 20px;
   letter-spacing: 0.48px;
@@ -20,26 +21,45 @@
   vertical-align: middle;
   cursor: pointer;
   user-select: none;
-  transition:
-    background-color .15s ease,
-    border-color .15s ease,
-    color .15s ease,
-    transform .06s ease;
+  transition: background-color 0.15s ease, border-color 0.15s ease,
+    color 0.15s ease, transform 0.06s ease;
+  box-sizing: border-box;
+  height: 40px;
 
   &:focus-visible {
-    outline: 3px solid rgba(98, 67, 230, .35);
+    outline: 3px solid rgba(98, 67, 230, 0.35);
     outline-offset: 2px;
   }
 
-  &--block { width: 100%; }
-  &--disabled { opacity: .6; cursor: not-allowed; }
+  &--block {
+    width: 100%;
+  }
+  &--disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 }
 
 /* ===== Elements ===== */
-.btn__label { color: inherit; white-space: nowrap; }
-.btn__icon  { color: inherit; display: inline-flex; align-items: center; justify-content: center; }
-.btn__icon--start { margin-right: 0; }
-.btn__icon--end   { margin-left: 0; }
+.btn__label {
+  color: inherit;
+  white-space: nowrap;
+}
+.btn__icon {
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn__icon--start {
+  margin-right: 0;
+  position: absolute;
+  left: 12px;
+  top: 12px;
+}
+.btn__icon--end {
+  margin-left: 0;
+}
 
 /* ===== Variants ===== */
 
@@ -48,10 +68,19 @@
   color: $white-95;
   background: $grey-regular;
 
-  &:hover  { background: $grey-hover; }
-  &:active { background: $grey-active; transform: translateY(1px); }
+  &:hover {
+    background: $grey-hover;
+  }
+  &:active {
+    background: $grey-active;
+    transform: translateY(1px);
+  }
   /* icon size (not specified → keep 16) */
-  .btn__icon > svg, .btn__icon { width: 16px; height: 16px; }
+  .btn__icon > svg,
+  .btn__icon {
+    width: 16px;
+    height: 16px;
+  }
 }
 
 /* Outline */
@@ -60,47 +89,107 @@
   color: $grey-regular;
   border-color: $black-20;
 
-  &:hover  { border-color: $black-40; color: $brand-hover; }
-  &:active { border-color: $brand;    color: $brand;       transform: translateY(1px); }
+  &:hover {
+    border-color: $black-40;
+    color: $brand-hover;
+  }
+  &:active {
+    border-color: $brand;
+    color: $brand;
+    transform: translateY(1px);
+  }
 
   /* outline with icon: size 16 & 12px gap */
   gap: 12px;
-  .btn__icon > svg, .btn__icon { width: 16px; height: 16px; }
+  .btn__icon > svg,
+  .btn__icon {
+    width: 16px;
+    height: 16px;
+  }
 }
 
 /* Flattened (ghost) */
 .btn--variant-ghost {
   /* specs override several text metrics */
-  padding: 16px 8px;
+  padding: $inset-md;
   border: 1px solid $black-20;
-  border-radius: 16px;
+  border-radius: $radius-16;
   background: transparent;
 
   font-weight: 600;
-  font-size: 11px;                   /* per spec */
+  font-size: 11px;
   line-height: 20px;
   letter-spacing: 0.48px;
   color: $grey-regular;
 
   /* icon size 16, gap 8 */
   gap: 8px;
-  .btn__icon > svg, .btn__icon { width: 16px; height: 16px; }
+  .btn__icon > svg,
+  .btn__icon {
+    width: 16px;
+    height: 16px;
+  }
 
-  &:hover  { color: $brand-hover; }
-  &:active { border-color: $brand; color: $brand; transform: translateY(1px); }
+  &:hover {
+    color: $brand-hover;
+  }
+  &:active {
+    border-color: $brand;
+    color: $brand;
+    transform: translateY(1px);
+  }
 }
 
 /* Icon button (circular) */
 .btn--variant-icon {
-  width: 32px; height: 32px;
-  padding: 0;                        /* fixed size; padding would break 32x32 */
+  width: 32px;
+  height: 32px;
+  padding: 0; /* fixed size; padding would break 32x32 */
   border-radius: 50%;
   background: transparent;
   border-color: transparent;
   color: $grey-regular;
 
-  .btn__icon > svg, .btn__icon { width: 20px; height: 20px; }
+  .btn__icon > svg,
+  .btn__icon {
+    width: 20px;
+    height: 20px;
+  }
 
-  &:hover  { background: $icon-hover-bg; }
-  &:active { background: $icon-active-bg; transform: translateY(1px); }
+  &:hover {
+    background: $icon-hover-bg;
+  }
+  &:active {
+    background: $icon-active-bg;
+    transform: translateY(1px);
+  }
+}
+
+.btn--variant-filled-icon {
+  width: 28px;
+  height: 28px;
+  padding: 6px;
+  border-radius: $radius-16;
+
+  color: $white-95;
+  background: $grey-regular;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+
+  &:hover {
+    background: $grey-hover;
+  }
+  &:active {
+    background: $grey-active;
+    transform: translateY(1px);
+  }
+
+  .btn__icon,
+  .btn__icon > svg {
+    width: 16px;
+    height: 16px;
+  }
 }

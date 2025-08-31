@@ -1,0 +1,97 @@
+@use "@/styles/variables" as *;
+
+.rail {
+  /* rail width is controlled by your grid column; these are inner paddings */
+  padding: 20px 6px; /* per spec */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* gap between blocks (logo / nav / footer) */
+  background: $grey-regular; /* dark rail */
+  color: $white;
+  height: 100%;
+}
+
+.rail__logo {
+  display: inline-flex;
+}
+
+.rail__nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* per spec: gap between icons */
+  width: 100%;
+}
+
+.rail__link {
+  /* clickable icon button */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px; /* per spec */
+  border: 0;
+  background: transparent;
+  color: inherit;
+  border-radius: 8px; /* keeps hit area rounded even when inactive */
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.06s ease;
+
+  &:hover {
+    background: #4f4f4f;
+  }
+
+  &:focus-visible {
+    outline: 3px solid rgba(255, 255, 255, 0.35);
+    outline-offset: 2px;
+  }
+}
+
+.rail__link--active {
+  background: $grey-hover;
+}
+
+.rail__icon,
+.rail__icon > svg {
+  width: 20px;
+  height: 20px;
+}
+
+.rail__separator {
+  width: 19px;
+  display: block;
+  margin: 0 auto;
+  border: 1px solid #ffffff33;
+}
+
+.rail__footer {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.rail__btn {
+  width: 36px;
+  height: 36px;
+  padding: 8px;
+  border-radius: 8px;
+  color: inherit;
+  border: none;
+  cursor: pointer;
+
+  background: transparent;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+
+  &:hover {
+    background: $grey-hover;
+  }
+  &:active {
+    background: $grey-active;
+    transform: translateY(1px);
+  }
+}
