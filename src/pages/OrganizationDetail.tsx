@@ -1,23 +1,9 @@
 import { Card } from "../components/Card/Card";
-import { NavList } from "../components/NavList/NavList";
 import { PageHeader } from "../components/PageHeader/PageHeader";
-import Rail from "../components/Rail/Rail";
-import { AppShell } from "../layouts/AppShell/AppShell";
 
 export default function OrganizationDetailsPage() {
   return (
-    <AppShell
-      rail={<Rail />}
-      sidebar={
-        <NavList
-          items={[
-            { label: "Organizations", active: true },
-            { label: "Contractors" },
-            { label: "Clients" },
-          ]}
-        />
-      }
-    >
+    <>
       <PageHeader
         title="Eternal Rest Funeral Home"
         back={<span>‹</span>}
@@ -99,6 +85,6 @@ export default function OrganizationDetailsPage() {
           </div>
         </Card>
       </div>
-    </AppShell>
+    </>
   );
 }

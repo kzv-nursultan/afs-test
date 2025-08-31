@@ -1,0 +1,57 @@
+@use "@/styles/variables" as *;
+
+.rail {
+  /* rail width is controlled by your grid column; these are inner paddings */
+  padding: 20px 6px;                  /* per spec */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;                          /* gap between blocks (logo / nav / footer) */
+  background: $grey-regular;                /* dark rail */
+  color: $white;
+  height: 100%;
+}
+
+.rail__logo { display: inline-flex; }
+
+.rail__nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;                          /* per spec: gap between icons */
+  width: 100%;
+}
+
+.rail__link {
+  /* clickable icon button */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;                       /* per spec */
+  border: 0;
+  background: transparent;
+  color: inherit;
+  border-radius: 16px;                 /* keeps hit area rounded even when inactive */
+  cursor: pointer;
+  transition: background-color .15s ease, transform .06s ease;
+
+  &:focus-visible { outline: 3px solid rgba(255,255,255,.35); outline-offset: 2px; }
+}
+
+/* Active state (per spec) */
+.rail__link--active {
+  background: $grey-hover;                 /* active bg */
+}
+
+/* Icon sizing – tweak if your SVGs already set size */
+.rail__icon,
+.rail__icon > svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Footer (e.g., search / settings) sticks to bottom if rail is tall) */
+.rail__footer {
+  margin-top: auto;
+  display: inline-flex;
+}
