@@ -1,0 +1,30 @@
+.data-list {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  row-gap: 12px;
+  margin: 0;
+}
+
+.data-list__term {
+  font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial,
+    sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+  color: #00000080;
+  align-self: center;
+  margin: 0;
+}
+
+.data-list__desc {
+  font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial,
+    sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0.3px;
+  color: #000000cc;
+  align-self: center;
+  margin: 0;
+}
