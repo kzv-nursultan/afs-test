@@ -1,0 +1,106 @@
+@use "@/styles/_form.scss" as form;
+
+.multi-select {
+  @include form.select-base;
+}
+
+.multi-select__control {
+  @include form.control-base;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-8;
+  width: 100%;
+}
+
+.multi-select__control--open {
+  @include form.control-open;
+}
+
+.multi-select__value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.multi-select__value--placeholder {
+  color: $text-500;
+}
+
+.multi-select__chevron {
+  @include form.chevron-box;
+}
+
+.multi-select__chevron-icon {
+  @include form.chevron-icon;
+}
+
+.multi-select__chevron--up .multi-select__chevron-icon {
+  transform: rotate(90deg);
+}
+
+.multi-select__panel {
+  @include form.popover-card;
+}
+
+.multi-select__list {
+  @include form.select-list;
+}
+
+/* ===== Option row ===== */
+.multi-select__option {
+  display: grid;
+  grid-template-columns: 20px 1fr; /* checkbox + label */
+  align-items: center;
+  column-gap: 14px; /* gap between checkbox and text */
+  padding: 12px 16px; /* per spec */
+  background: #fff;
+  @include body-13;
+  cursor: pointer;
+}
+
+.multi-select__option--selected {
+  background: #f2f2f2;
+  font-weight: 500;
+  color: #3b3b3b;
+}
+
+/* label text element (helps with truncation if needed) */
+.multi-select__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ===== Custom checkbox (20x20, r=4, 1px #0000004D) ===== */
+.multi-select__checkbox {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.multi-select__box {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 1px solid #0000004d;
+  background: #fff;
+  color: #3b3b3b; /* check color via currentColor */
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+}
+
+.multi-select__check {
+  width: 16px;
+  height: 16px;
+  display: block;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 0.12s ease, transform 0.12s ease;
+}
+
+.multi-select__checkbox:checked + .multi-select__box .multi-select__check {
+  opacity: 1;
+  transform: scale(1);
+}

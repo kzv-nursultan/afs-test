@@ -1,0 +1,9 @@
+@use "@/styles/_form.scss" as form;
+
+.text-field {
+  @include form.control-base;
+}
+
+.text-field--invalid {
+  border-color: #d92d20;
+}

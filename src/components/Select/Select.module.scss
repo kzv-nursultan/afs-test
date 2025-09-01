@@ -1,0 +1,64 @@
+@use "@/styles/_form.scss" as form;
+
+.select {
+  @include form.select-base;
+}
+
+.select__control {
+  @include form.control-base;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-8;
+  width: 100%;
+}
+
+.select__control--open {
+  @include form.control-open;
+}
+
+.select__value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.select__value--placeholder {
+  color: $text-500;
+}
+
+.select__chevron {
+  @include form.chevron-box;
+}
+.select__chevron-icon {
+  @include form.chevron-icon
+}
+.select__chevron--up .select__chevron-icon {
+  transform: rotate(90deg);
+}
+
+.select__panel {
+  @include form.popover-card;
+}
+.select__list {
+  @include form.select-list
+}
+
+.select__option {
+  width: 100%;
+  text-align: left;
+  height: 44px;
+  padding: 12px 16px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  @include body-13;
+}
+.select__option--active {
+  background: #f5f5f5;
+}
+.select__option--selected {
+  background: #0000000d;
+  font-weight: 500;
+  color: $text-900;
+}
