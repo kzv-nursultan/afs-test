@@ -2,9 +2,9 @@ import React from "react";
 import s from "./AppShell.module.scss";
 
 type Props = {
-  sidebar: React.ReactNode; // the white panel with Organizations/Contractors/Clients
-  rail?: React.ReactNode; // the dark icon rail
-  children: React.ReactNode; // main content
+  sidebar: React.ReactNode;
+  rail?: React.ReactNode;
+  children: React.ReactNode;
 };
 
 export function AppShell({ rail, sidebar, children }: Props) {
