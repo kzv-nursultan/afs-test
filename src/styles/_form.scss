@@ -1,0 +1,70 @@
+@use "./variables.scss" as *;
+
+@mixin select-base {
+  position: relative;
+  width: 100%;
+}
+
+@mixin control-base {
+  height: 40px;
+  padding: $space-10 $space-12;
+  border-radius: $radius-8;
+  border: 1px solid $border-weak;
+  background: #fff;
+  @include body-14;
+
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  &:hover {
+    border-color: $border-strong;
+  }
+  &:focus {
+    outline: 2px solid $focus;
+    outline-offset: -1px;
+    border-color: $focus;
+  }
+  &::placeholder {
+    color: $text-500;
+  }
+}
+
+@mixin control-open {
+  outline: 2px solid $focus;
+  outline-offset: -1px;
+  border-color: $focus;
+}
+
+@mixin popover-card {
+  padding: $space-8 0;
+  background: $panel-bg;
+  border-radius: $radius-8;
+  box-shadow: $panel-shadow-1, $panel-shadow-2;
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 6px);
+  z-index: 20;
+}
+
+@mixin select-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* was: %chevron-box */
+@mixin chevron-box {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  line-height: 0;
+}
+
+@mixin chevron-icon {
+  transform-origin: 50% 50%;
+  transform: rotate(-90deg);
+  transition: transform 0.15s ease;
+}

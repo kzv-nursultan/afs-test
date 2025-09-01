@@ -9,9 +9,14 @@ import AddPhoto from "../icons/AddPhoto";
 import Edit from "../icons/Edit";
 import Trash from "../icons/Trash";
 import { Dialog } from "../components/Dialog/Dialog";
+import { TextField } from "../components/TextField/TextField";
+import { Select } from "../components/Select/Select";
+import { MultiSelect } from "../components/MultiSelect/MultiSelect";
 
 export default function OrganizationDetailsPage() {
   const [open, setOpen] = useState(false);
+  const [value, setValue] = useState("");
+  const [values, setValues] = useState<string[]>(["fh", "log"]);
 
   const toggleModal = () => setOpen((prev) => !prev);
 
@@ -53,19 +58,6 @@ export default function OrganizationDetailsPage() {
       </Card>
 
       <Card
-        title="Contacts"
-        actions={<Button variant="ghost" label="Edit" icon={<Edit />} />}
-      >
-        <DataList
-          items={[
-            { label: "Responsible person:", value: "David Rosenberg" },
-            { label: "Phone number:", value: "+1 702 555 2345" },
-            { label: "E-mail:", value: "david_rosenberg88@gmail.com" },
-          ]}
-        />
-      </Card>
-
-      <Card
         title="Photos"
         actions={<Button variant="ghost" label="Add" icon={<AddPhoto />} />}
       >
@@ -78,17 +70,37 @@ export default function OrganizationDetailsPage() {
           onDelete={(id) => console.log("delete", id)}
         />
       </Card>
+      <Card>
+        <MultiSelect
+          options={[
+            { value: "fh", label: "Funeral Home" },
+            { value: "log", label: "Logistics services" },
+            { value: "burial", label: "Burial care Contractor" },
+          ]}
+          value={values}
+          onChange={setValues}
+          placeholder="Select company types"
+          id="company-types"
+        />
+        <TextField placeholder="Input text" />
+        <Select
+          options={[
+            { value: "sp", label: "Sole Proprietorship" },
+            { value: "pa", label: "Partnership" },
+            { value: "llc", label: "Limited Liability Company" },
+          ]}
+          value={value}
+          onChange={setValue}
+          id="business-entity"
+        />
+      </Card>
       <Dialog
         open={open}
         onClose={toggleModal}
         title="Remove the Organization?"
         actions={
           <>
-            <Button
-              variant="outline"
-              label="No"
-              onClick={toggleModal}
-            />
+            <Button variant="outline" label="No" onClick={toggleModal} />
             <Button
               variant="filled"
               label="Yes, remove"
