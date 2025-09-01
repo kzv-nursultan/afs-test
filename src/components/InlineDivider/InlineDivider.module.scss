@@ -1,0 +1,15 @@
+/* Block */
+.inline-divider {
+  display: inline-flex;
+  align-items: center;
+  column-gap: 12px; /* overridden by inline style */
+}
+
+/* Elements */
+.inline-divider__part { color: inherit; }     /* inherit value typography */
+
+.inline-divider__sep {
+  color: #0000004D;                           /* your spec */
+  line-height: 1;
+  user-select: none;
+}

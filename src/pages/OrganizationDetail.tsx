@@ -1,90 +1,106 @@
+import { useState } from "react";
+import { Button } from "../components/Button/Button";
 import { Card } from "../components/Card/Card";
-import { PageHeader } from "../components/PageHeader/PageHeader";
+import { DataList } from "../components/DataList/DataList";
+import { InlineDivider } from "../components/InlineDivider/InlineDivider";
+import { Page } from "../components/Page/Page";
+import { PhotoGrid } from "../components/PhotoGrid/PhotoGrid";
+import AddPhoto from "../icons/AddPhoto";
+import Edit from "../icons/Edit";
+import Trash from "../icons/Trash";
+import { Dialog } from "../components/Dialog/Dialog";
 
 export default function OrganizationDetailsPage() {
+  const [open, setOpen] = useState(false);
+
+  const toggleModal = () => setOpen((prev) => !prev);
+
   return (
-    <>
-      <PageHeader
-        title="Eternal Rest Funeral Home"
-        back={<span>‹</span>}
-        actions={<div>{/* edit / delete buttons */}</div>}
-      />
+    <Page
+      title="Eternal Rest Funeral Home"
+      actions={
+        <>
+          <Button variant="icon" ariaLabel="Edit" icon={<Edit />} />
+          <Button
+            variant="icon"
+            ariaLabel="Delete"
+            icon={<Trash stroke="#D72323" />}
+            onClick={toggleModal}
+          />
+        </>
+      }
+    >
+      <Card
+        title="Company Details"
+        actions={<Button variant="ghost" label="Edit" icon={<Edit />} />}
+      >
+        <DataList
+          items={[
+            {
+              label: "Agreement:",
+              value: <InlineDivider parts={["1624/2-24", "03.12.2024"]} />,
+            },
+            {
+              label: "Business entity:",
+              value: "Partnership",
+            },
+            {
+              label: "Company type:",
+              value: "Funeral Home, Logistics services",
+            },
+          ]}
+        />
+      </Card>
 
-      <div style={{ display: "grid", gap: 16 }}>
-        <Card title="Company Details" actions={<div>{/* Edit btn */}</div>}>
-          {/* 2-col description list */}
-          <dl
-            style={{
-              display: "grid",
-              gridTemplateColumns: "220px 1fr",
-              rowGap: 12,
-            }}
-          >
-            <dt>Agreement:</dt>
-            <dd>1624/2-24 / 03.12.2024</dd>
-            <dt>Business entity:</dt>
-            <dd>Partnership</dd>
-            <dt>Company type:</dt>
-            <dd>Funeral Home, Logistics services</dd>
-          </dl>
-        </Card>
+      <Card
+        title="Contacts"
+        actions={<Button variant="ghost" label="Edit" icon={<Edit />} />}
+      >
+        <DataList
+          items={[
+            { label: "Responsible person:", value: "David Rosenberg" },
+            { label: "Phone number:", value: "+1 702 555 2345" },
+            { label: "E-mail:", value: "david_rosenberg88@gmail.com" },
+          ]}
+        />
+      </Card>
 
-        <Card title="Contacts" actions={<div>{/* Edit btn */}</div>}>
-          <dl
-            style={{
-              display: "grid",
-              gridTemplateColumns: "220px 1fr",
-              rowGap: 12,
-            }}
-          >
-            <dt>Responsible person:</dt>
-            <dd>David Rosenberg</dd>
-            <dt>Phone number:</dt>
-            <dd>+1 702 555 2345</dd>
-            <dt>E-mail:</dt>
-            <dd>david_rosenberg88@gmail.com</dd>
-          </dl>
-        </Card>
-
-        <Card title="Photos" actions={<div>{/* Add btn */}</div>}>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
-              gap: 12,
-            }}
-          >
-            <div
-              style={{
-                height: "96px",
-                background: "#ddd",
-                borderRadius: "10px",
+      <Card
+        title="Photos"
+        actions={<Button variant="ghost" label="Add" icon={<AddPhoto />} />}
+      >
+        <PhotoGrid
+          photos={[
+            { id: 1, src: "/main-logo.png", alt: "Funeral home" },
+            { id: 2, src: "/main-logo.png", alt: "Ceremony hall" },
+            { id: 3, src: "/main-logo.png", alt: "Lobby" },
+          ]}
+          onDelete={(id) => console.log("delete", id)}
+        />
+      </Card>
+      <Dialog
+        open={open}
+        onClose={toggleModal}
+        title="Remove the Organization?"
+        actions={
+          <>
+            <Button
+              variant="outline"
+              label="No"
+              onClick={toggleModal}
+            />
+            <Button
+              variant="filled"
+              label="Yes, remove"
+              onClick={() => {
+                /* call delete */
               }}
-            ></div>
-            <div
-              style={{
-                height: "96px",
-                background: "#ddd",
-                borderRadius: "10px",
-              }}
-            ></div>
-            <div
-              style={{
-                height: "96px",
-                background: "#ddd",
-                borderRadius: "10px",
-              }}
-            ></div>
-            <div
-              style={{
-                height: "96px",
-                background: "#ddd",
-                borderRadius: "10px",
-              }}
-            ></div>
-          </div>
-        </Card>
-      </div>
-    </>
+            />
+          </>
+        }
+      >
+        Are you sure you want to remove this Organization?
+      </Dialog>
+    </Page>
   );
 }

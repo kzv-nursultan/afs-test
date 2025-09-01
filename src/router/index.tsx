@@ -9,8 +9,6 @@ import Contractor from "../icons/Contractor";
 import Account from "../icons/Account";
 import { Sidebar } from "../components/Sidebar/Sidebar";
 
-// The app layout route: AppShell + Rail + Sidebar + Outlet
-
 export const router = createBrowserRouter([
   {
     element: (
