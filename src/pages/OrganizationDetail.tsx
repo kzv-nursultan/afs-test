@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../components/Button/Button";
 import { Card } from "../components/Card/Card";
 import { DataList } from "../components/DataList/DataList";
@@ -12,17 +12,36 @@ import { Dialog } from "../components/Dialog/Dialog";
 import { TextField } from "../components/TextField/TextField";
 import { Select } from "../components/Select/Select";
 import { MultiSelect } from "../components/MultiSelect/MultiSelect";
+import { useContactStore, useOrganizationStore } from "../stores/store-context";
+import { observer } from "mobx-react-lite";
+import { formatIsoToDMY } from "../features/utils/isoDateFormatter";
 
-export default function OrganizationDetailsPage() {
+function OrganizationDetail() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   const [values, setValues] = useState<string[]>(["fh", "log"]);
+  const id = "12";
+  const org = useOrganizationStore();
+  const contact = useContactStore();
+
+  useEffect(() => {
+    if (id) org.fetchOrganization(id);
+  }, [id, org]);
+
+  useEffect(() => {
+    if (org.organization?.contactId)
+      contact.fetchContact(org.organization.contactId);
+  }, [org.organization?.contactId, contact]);
 
   const toggleModal = () => setOpen((prev) => !prev);
 
+  const organization = org.organization;
+
+  if (!organization) return null;
+
   return (
     <Page
-      title="Eternal Rest Funeral Home"
+      title={organization?.name}
       actions={
         <>
           <Button variant="icon" ariaLabel="Edit" icon={<Edit />} />
@@ -43,15 +62,44 @@ export default function OrganizationDetailsPage() {
           items={[
             {
               label: "Agreement:",
-              value: <InlineDivider parts={["1624/2-24", "03.12.2024"]} />,
+              value: (
+                <InlineDivider
+                  parts={[
+                    organization.contract.no,
+                    formatIsoToDMY(organization.contract.issue_date),
+                  ]}
+                />
+              ),
             },
             {
               label: "Business entity:",
-              value: "Partnership",
+              value: organization.businessEntity,
             },
             {
               label: "Company type:",
-              value: "Funeral Home, Logistics services",
+              value: organization.type.join(", "),
+            },
+          ]}
+        />
+      </Card>
+
+      <Card
+        title="Contacts"
+        actions={<Button variant="ghost" label="Edit" icon={<Edit />} />}
+      >
+        <DataList
+          items={[
+            {
+              label: "Responsible person:",
+              value: `${contact.contact?.firstname} ${contact.contact?.lastname}`,
+            },
+            {
+              label: "Phone number:",
+              value: contact.contact?.phone,
+            },
+            {
+              label: "Email:",
+              value: contact.contact?.email,
             },
           ]}
         />
@@ -62,11 +110,7 @@ export default function OrganizationDetailsPage() {
         actions={<Button variant="ghost" label="Add" icon={<AddPhoto />} />}
       >
         <PhotoGrid
-          photos={[
-            { id: 1, src: "/main-logo.png", alt: "Funeral home" },
-            { id: 2, src: "/main-logo.png", alt: "Ceremony hall" },
-            { id: 3, src: "/main-logo.png", alt: "Lobby" },
-          ]}
+          photos={organization.photos}
           onDelete={(id) => console.log("delete", id)}
         />
       </Card>
@@ -116,3 +160,6 @@ export default function OrganizationDetailsPage() {
     </Page>
   );
 }
+
+const OrganizationDetailsPage = observer(OrganizationDetail);
+export default OrganizationDetailsPage;
