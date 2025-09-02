@@ -1,54 +1,70 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
+import { PublicOnly } from "../auth/PublicAway";
+import LoginPage from "../pages/LoginPage";
+import { RequireAuth } from "../auth/RequireAuth";
 import { AppShell } from "../layouts/AppShell/AppShell";
 import Rail from "../components/Rail/Rail";
 import Logo from "../icons/Logo";
 import Company from "../icons/Company";
 import Search from "../icons/Search";
+import { Sidebar } from "../components/Sidebar/Sidebar";
 import OrganizationDetailsPage from "../pages/OrganizationDetail";
 import Contractor from "../icons/Contractor";
 import Account from "../icons/Account";
-import { Sidebar } from "../components/Sidebar/Sidebar";
+
 
 export const router = createBrowserRouter([
+  // Public-only tree (login)
   {
-    element: (
-      <AppShell
-        rail={
-          <Rail
-            logo={<Logo width={36} height={36} />}
-            items={[
-              {
-                id: "org",
-                icon: <Company />,
-                ariaLabel: "Organizations",
-                to: "/",
-              },
-              {
-                id: "search",
-                icon: <Search />,
-                ariaLabel: "Search",
-                to: "/search",
-              },
-            ]}
-          />
-        }
-        sidebar={
-          <Sidebar
-            items={[
-              { label: "Organizations", icon: <Company /> },
-              { label: "Contractors", icon: <Contractor /> },
-              { label: "Clients", icon: <Account /> },
-            ]}
-          />
-        }
-      >
-        <Outlet />
-      </AppShell>
-    ),
-    children: [
-      { index: true, path: "/", element: <OrganizationDetailsPage /> },
+    element: <PublicOnly />,
+    children: [{ path: "/login", element: <LoginPage /> }],
+  },
 
-      { path: "*", element: <h1>Page is not found</h1> },
+  // Protected tree
+  {
+    element: <RequireAuth />, // everything under here needs auth
+    children: [
+      {
+        element: (
+          <AppShell
+            rail={
+              <Rail
+                logo={<Logo width={36} height={36} />}
+                items={[
+                  {
+                    id: "org",
+                    icon: <Company />,
+                    ariaLabel: "Organizations",
+                    to: "/",
+                  },
+                  {
+                    id: "search",
+                    icon: <Search />,
+                    ariaLabel: "Search",
+                    to: "/search",
+                  },
+                ]}
+              />
+            }
+            sidebar={
+              <Sidebar
+                items={[
+                  { label: "Organizations", icon: <Company /> },
+                  { label: "Contractors", icon: <Contractor /> },
+                  { label: "Clients", icon: <Account /> },
+                ]}
+              />
+            }
+          >
+            <Outlet />
+          </AppShell>
+        ),
+        children: [
+          { index: true, path: "/", element: <OrganizationDetailsPage /> },
+
+          { path: "*", element: <h1>Page is not found</h1> },
+        ],
+      },
     ],
   },
 ]);

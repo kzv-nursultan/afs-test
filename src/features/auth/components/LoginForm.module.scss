@@ -1,0 +1,36 @@
+.auth__form {
+  display: grid;
+  gap: 12px;
+}
+
+.auth__field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-10;
+}
+
+.auth__label {
+  width: 30%;
+}
+
+.auth__password {
+  position: relative;
+  width: 100%;
+}
+
+.auth__icon-button {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+}
+
+.auth__actions {
+  text-align: center;
+}
+
+.auth__error {
+  text-align: center;
+  color: red;
+  font-weight: 500;
+}
