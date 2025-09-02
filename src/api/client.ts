@@ -1,11 +1,11 @@
 import axios, { AxiosError, type AxiosInstance } from "axios";
-import { API_URL, API_TIMEOUT, IS_DEV } from "../config";
+import { API_URL, API_TIMEOUT, IS_DEV, AUTH_TOKEN } from "../config";
 
 const auth = {
-  getToken: () => localStorage.getItem("token") || "", // replace with real source
+  getToken: () => localStorage.getItem(AUTH_TOKEN) || "", // replace with real source
   onUnauthorized: () => {
     // e.g., clear store and redirect to /login
-    localStorage.removeItem("token");
+    localStorage.removeItem(AUTH_TOKEN);
   },
 };
 
@@ -22,7 +22,7 @@ export const http: AxiosInstance = axios.create({
 // --- Request interceptor: attach Authorization, dev logging
 http.interceptors.request.use((config) => {
   const token = auth.getToken();
-  if (token) config.headers.Authorization = `Bearer ${token}`;
+  if (token) config.headers.Authorization = `${token}`;
   if (IS_DEV) {
     console.debug(
       "[HTTP] →",

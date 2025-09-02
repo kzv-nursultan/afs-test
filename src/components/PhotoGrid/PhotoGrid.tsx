@@ -1,20 +1,15 @@
 import Trash from "../../icons/Trash";
+import type { OrganizationPhoto } from "../../types/company";
 import { Button } from "../Button/Button";
 import s from "./PhotoGrid.module.scss";
 
-export type PhotoItem = {
-  id: string | number;
-  src: string;
-  alt?: string;
-};
-
 type Props = {
-  photos: PhotoItem[];
-  onDelete?: (id: PhotoItem["id"]) => void;
-  width?: number; // default 144
-  height?: number; // default 108
-  gap?: number; // default 12
-  radius?: number; // default 10
+  photos: OrganizationPhoto[];
+  onDelete?: (id: OrganizationPhoto["name"]) => void;
+  width?: number;
+  height?: number;
+  gap?: number;
+  radius?: number;
 };
 
 export function PhotoGrid({
@@ -35,21 +30,21 @@ export function PhotoGrid({
     >
       {photos.map((p) => (
         <figure
-          key={p.id}
+          key={p.name}
           className={s["photo-thumb"]}
           style={{ width, height, borderRadius: radius }}
         >
           <img
             className={s["photo-thumb__img"]}
-            src={p.src}
-            alt={p.alt || ""}
+            src={p.filepath}
+            alt={p.name || ""}
           />
           {onDelete && (
             <div className={s["photo-thumb__action"]}>
               <Button
                 type="button"
                 variant="filled-icon"
-                onClick={() => onDelete(p.id)}
+                onClick={() => onDelete(p.name)}
                 icon={<Trash />}
               />
             </div>
