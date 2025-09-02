@@ -9,19 +9,16 @@ import AddPhoto from "../icons/AddPhoto";
 import Edit from "../icons/Edit";
 import Trash from "../icons/Trash";
 import { Dialog } from "../components/Dialog/Dialog";
-import { TextField } from "../components/TextField/TextField";
-import { Select } from "../components/Select/Select";
-import { MultiSelect } from "../components/MultiSelect/MultiSelect";
 import { useContactStore, useOrganizationStore } from "../stores/store-context";
 import { observer } from "mobx-react-lite";
 import { formatIsoToDMY } from "../features/utils/isoDateFormatter";
 import { CompanyTypeMap } from "../features/utils/companyTypeMapper";
 import { formatUSPhoneIntl } from "../features/utils/phone-format";
+import EditOrganizationName from "../features/modals/EditOrganzationName";
 
 function OrganizationDetail() {
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
-  const [values, setValues] = useState<string[]>(["fh", "log"]);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
   const id = "12";
   const org = useOrganizationStore();
   const contact = useContactStore();
@@ -35,7 +32,8 @@ function OrganizationDetail() {
       contact.fetchContact(org.organization.contactId);
   }, [org.organization?.contactId, contact]);
 
-  const toggleModal = () => setOpen((prev) => !prev);
+  const toggleDeleteModal = () => setOpenDeleteModal((prev) => !prev);
+  const openEditName = () => setOpenEditModal(true);
 
   const organization = org.organization;
 
@@ -46,12 +44,17 @@ function OrganizationDetail() {
       title={organization?.name}
       actions={
         <>
-          <Button variant="icon" ariaLabel="Edit" icon={<Edit />} />
+          <Button
+            variant="icon"
+            ariaLabel="Edit"
+            icon={<Edit />}
+            onClick={openEditName}
+          />
           <Button
             variant="icon"
             ariaLabel="Delete"
             icon={<Trash stroke="#D72323" />}
-            onClick={toggleModal}
+            onClick={toggleDeleteModal}
           />
         </>
       }
@@ -84,7 +87,6 @@ function OrganizationDetail() {
           ]}
         />
       </Card>
-
       <Card
         title="Contacts"
         actions={<Button variant="ghost" label="Edit" icon={<Edit />} />}
@@ -106,7 +108,6 @@ function OrganizationDetail() {
           ]}
         />
       </Card>
-
       <Card
         title="Photos"
         actions={<Button variant="ghost" label="Add" icon={<AddPhoto />} />}
@@ -116,7 +117,7 @@ function OrganizationDetail() {
           onDelete={(id) => console.log("delete", id)}
         />
       </Card>
-      <Card>
+      {/* <Card>
         <MultiSelect
           options={[
             { value: "fh", label: "Funeral Home" },
@@ -139,14 +140,14 @@ function OrganizationDetail() {
           onChange={setValue}
           id="business-entity"
         />
-      </Card>
+      </Card> */}
       <Dialog
-        open={open}
-        onClose={toggleModal}
+        open={openDeleteModal}
+        onClose={toggleDeleteModal}
         title="Remove the Organization?"
         actions={
           <>
-            <Button variant="outline" label="No" onClick={toggleModal} />
+            <Button variant="outline" label="No" onClick={toggleDeleteModal} />
             <Button
               variant="filled"
               label="Yes, remove"
@@ -159,6 +160,10 @@ function OrganizationDetail() {
       >
         Are you sure you want to remove this Organization?
       </Dialog>
+      <EditOrganizationName
+        openEditModal={openEditModal}
+        setOpenEditModal={setOpenEditModal}
+      />
     </Page>
   );
 }

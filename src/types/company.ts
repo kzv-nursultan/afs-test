@@ -1,6 +1,10 @@
 import type { ISODateTimeString } from "./shared";
 
-type BusinessEntity = string | "Partnership";
+type BusinessEntity =
+  | "Partnership"
+  | "Sole Proprietorship"
+  | "Limited Liability Company";
+  
 type Status = "active" | "disabled" | string;
 
 export type OrganizationTypes =

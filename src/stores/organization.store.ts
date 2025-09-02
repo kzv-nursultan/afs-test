@@ -49,23 +49,24 @@ export class OrganizationStore {
     }
   }
 
-  // update and persist (PATCH), then update state
   async updateOrganization(patch: Partial<Organization>) {
     if (!this.organization) return;
     this.loading = true;
     this.error = null;
     try {
       const res = await http.patch<Organization>(
-        `/organizations/${this.organization.id}`,
+        `/companies/${this.organization.id}`,
         patch
       );
       runInAction(() => {
         this.organization = res.data;
       });
+      toast.success("Organization name successfully changed");
     } catch {
       runInAction(() => {
         this.error = "Failed to update organization";
       });
+      toast.error(this.error);
     } finally {
       runInAction(() => {
         this.loading = false;
