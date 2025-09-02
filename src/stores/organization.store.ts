@@ -1,7 +1,6 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import type { Organization } from "../types/company";
-import { http } from "../api/client";
-import { getOrganization } from "../api";
+import { deleteOrganization, editOrganization, getOrganization } from "../api";
 import toast from "react-hot-toast";
 
 export class OrganizationStore {
@@ -54,12 +53,9 @@ export class OrganizationStore {
     this.loading = true;
     this.error = null;
     try {
-      const res = await http.patch<Organization>(
-        `/companies/${this.organization.id}`,
-        patch
-      );
+      const res = await editOrganization(patch, this.organization.id);
       runInAction(() => {
-        this.organization = res.data;
+        this.organization = res;
       });
       toast.success("Organization name successfully changed");
     } catch {
@@ -80,7 +76,7 @@ export class OrganizationStore {
     this.error = null;
 
     try {
-      await http.delete<Organization>(`/companies/${this.organization.id}`);
+      await deleteOrganization(this.organization.id);
       runInAction(() => {
         this.organization = null;
       });

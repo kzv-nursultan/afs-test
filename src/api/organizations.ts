@@ -7,3 +7,15 @@ export async function getOrganization(id: string, signal?: AbortSignal) {
   });
   return data;
 }
+
+export async function editOrganization(
+  patch: Partial<Organization>,
+  id: string
+) {
+  const { data } = await http.patch<Organization>(`/companies/${id}`, patch);
+  return data;
+}
+
+export async function deleteOrganization(id: string) {
+  await http.delete(`/companies/${id}`);
+}
