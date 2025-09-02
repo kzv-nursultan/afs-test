@@ -1,6 +1,7 @@
 @use "@/styles/_form.scss" as form;
 
 .text-field {
+  width: 100%;
   @include form.control-base;
 }
 

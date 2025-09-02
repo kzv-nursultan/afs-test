@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useMemo, useState } from "react";
-
-const AUTH_KEY = "auth_token";
+import { AUTH_TOKEN } from "../config";
 
 type AuthContextType = {
   token: string | null;
@@ -13,7 +12,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [token, setToken] = useState<string | null>(() =>
-    localStorage.getItem(AUTH_KEY)
+    localStorage.getItem(AUTH_TOKEN)
   );
 
   const value = useMemo<AuthContextType>(
@@ -21,11 +20,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       token,
       isAuthed: Boolean(token),
       login: (t: string) => {
-        localStorage.setItem(AUTH_KEY, t);
+        localStorage.setItem(AUTH_TOKEN, t);
         setToken(t);
       },
       logout: () => {
-        localStorage.removeItem(AUTH_KEY);
+        localStorage.removeItem(AUTH_TOKEN);
         setToken(null);
       },
     }),

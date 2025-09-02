@@ -1,5 +1,5 @@
 import React from "react";
-import s from "./Athentication.module.scss";
+import s from "./Authentication.module.scss";
 
 type Props = {
   children: React.ReactNode;
