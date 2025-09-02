@@ -16,6 +16,7 @@ import { formatUSPhoneIntl } from "../features/utils/phone-format";
 import EditOrganizationName from "../features/modals/EditOrganzationName";
 import DeleteOrganization from "../features/modals/DeleteOrganization";
 import { useParams } from "react-router-dom";
+import CompanyDetails from "../features/edit/EditCompanyDetails/EditCompanyDetails";
 
 function OrganizationDetail() {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
@@ -88,6 +89,7 @@ function OrganizationDetail() {
           ]}
         />
       </Card>
+      <CompanyDetails />
       <Card
         title="Contacts"
         actions={<Button variant="ghost" label="Edit" icon={<Edit />} />}
