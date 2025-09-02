@@ -15,6 +15,8 @@ import { MultiSelect } from "../components/MultiSelect/MultiSelect";
 import { useContactStore, useOrganizationStore } from "../stores/store-context";
 import { observer } from "mobx-react-lite";
 import { formatIsoToDMY } from "../features/utils/isoDateFormatter";
+import { CompanyTypeMap } from "../features/utils/companyTypeMapper";
+import { formatUSPhoneIntl } from "../features/utils/phone-format";
 
 function OrganizationDetail() {
   const [open, setOpen] = useState(false);
@@ -77,7 +79,7 @@ function OrganizationDetail() {
             },
             {
               label: "Company type:",
-              value: organization.type.join(", "),
+              value: organization.type.map((t) => CompanyTypeMap[t]).join(", "),
             },
           ]}
         />
@@ -95,7 +97,7 @@ function OrganizationDetail() {
             },
             {
               label: "Phone number:",
-              value: contact.contact?.phone,
+              value: formatUSPhoneIntl(contact.contact?.phone || ""),
             },
             {
               label: "Email:",
