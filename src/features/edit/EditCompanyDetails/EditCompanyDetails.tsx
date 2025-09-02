@@ -18,6 +18,7 @@ import X from "../../../icons/X";
 import { FormInline } from "../../../components/FormInline/FormInline";
 import DateField from "../../../components/DateField/DatePickerTextField";
 import { ymdToISO } from "../../utils/isoDateFormatter";
+import type { ToggleEditProps } from "../../../types/shared";
 
 type EntityItem = { value: BusinessEntity; label: BusinessEntity };
 type OrganizationPatch = Partial<Omit<Organization, "contract">> & {
@@ -45,7 +46,7 @@ const initialPatchData: OrganizationPatch = {
   type: [],
 };
 
-function CompanyDetailsBase() {
+function CompanyDetailsBase({ toggleEdit }: ToggleEditProps) {
   const org = useOrganizationStore();
   const [patch, setPatch] = useState<OrganizationPatch>(initialPatchData);
 
@@ -126,8 +127,9 @@ function CompanyDetailsBase() {
             variant="ghost"
             label="Cancel"
             icon={<X />}
-            type="reset"
+            type="button"
             form={FORM_ID}
+            onClick={toggleEdit}
           />
         </>
       }
@@ -196,5 +198,5 @@ function CompanyDetailsBase() {
   );
 }
 
-const CompanyDetails = observer(CompanyDetailsBase);
-export default CompanyDetails;
+const CompanyDetailsEdit = observer(CompanyDetailsBase);
+export default CompanyDetailsEdit;

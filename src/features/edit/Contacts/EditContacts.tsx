@@ -8,7 +8,7 @@ import { DataList } from "../../../components/DataList/DataList";
 import { TextField } from "../../../components/TextField/TextField";
 import { formatUSPhoneIntl } from "../../utils/phone-format";
 import { useEffect, useState } from "react";
-import type { InputChangeEvent } from "../../../types/shared";
+import type { InputChangeEvent, ToggleEditProps } from "../../../types/shared";
 
 const FORM_ID = "contact-form";
 
@@ -18,7 +18,7 @@ interface Patch {
   email: string;
 }
 
-function ContactsBase() {
+function ContactsBase({ toggleEdit }: ToggleEditProps) {
   const cont = useContactStore();
   const [patch, setPatch] = useState<Patch>({
     fullname: "",
@@ -61,8 +61,8 @@ function ContactsBase() {
             variant="ghost"
             label="Cancel"
             icon={<X />}
-            type="reset"
-            // form={FORM_ID}
+            type="button"
+            onClick={toggleEdit}
           />
         </>
       }
