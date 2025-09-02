@@ -17,6 +17,7 @@ import EditOrganizationName from "../features/modals/EditOrganzationName";
 import DeleteOrganization from "../features/modals/DeleteOrganization";
 import { useParams } from "react-router-dom";
 import CompanyDetails from "../features/edit/EditCompanyDetails/EditCompanyDetails";
+import EditContacts from "../features/edit/Contacts/EditContacts";
 
 function OrganizationDetail() {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
@@ -89,6 +90,7 @@ function OrganizationDetail() {
           ]}
         />
       </Card>
+      <EditContacts />
       <CompanyDetails />
       <Card
         title="Contacts"

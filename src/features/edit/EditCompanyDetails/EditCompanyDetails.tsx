@@ -132,7 +132,6 @@ function CompanyDetailsBase() {
         </>
       }
     >
-      {/* The form wraps only the inputs */}
       <form id={FORM_ID} onSubmit={onSubmit} onReset={onReset} noValidate>
         <DataList
           items={[
