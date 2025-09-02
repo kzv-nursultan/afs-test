@@ -8,6 +8,7 @@ import { http } from "../../../api/client";
 import { useAuth } from "../../../auth/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { readAxiosHeader } from "../../utils/readAxiosHeader";
+import toast from "react-hot-toast";
 
 interface UserData {
   username: string;
@@ -76,6 +77,7 @@ export default function LoginForm() {
       navigate("/");
     } catch (err) {
       console.error("Auth error", err);
+      toast.error("Something went wrong, please try again later")
     } finally {
       setLoading(false);
     }
