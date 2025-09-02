@@ -8,18 +8,19 @@ import { PhotoGrid } from "../components/PhotoGrid/PhotoGrid";
 import AddPhoto from "../icons/AddPhoto";
 import Edit from "../icons/Edit";
 import Trash from "../icons/Trash";
-import { Dialog } from "../components/Dialog/Dialog";
 import { useContactStore, useOrganizationStore } from "../stores/store-context";
 import { observer } from "mobx-react-lite";
 import { formatIsoToDMY } from "../features/utils/isoDateFormatter";
 import { CompanyTypeMap } from "../features/utils/companyTypeMapper";
 import { formatUSPhoneIntl } from "../features/utils/phone-format";
 import EditOrganizationName from "../features/modals/EditOrganzationName";
+import DeleteOrganization from "../features/modals/DeleteOrganization";
+import { useParams } from "react-router-dom";
 
 function OrganizationDetail() {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
-  const id = "12";
+  const { id } = useParams();
   const org = useOrganizationStore();
   const contact = useContactStore();
 
@@ -32,12 +33,12 @@ function OrganizationDetail() {
       contact.fetchContact(org.organization.contactId);
   }, [org.organization?.contactId, contact]);
 
-  const toggleDeleteModal = () => setOpenDeleteModal((prev) => !prev);
+  const toggleDeleteModal = () => setOpenDeleteModal(true);
   const openEditName = () => setOpenEditModal(true);
 
   const organization = org.organization;
 
-  if (!organization) return null;
+  if (!organization) return <h1>Organization not found</h1>;
 
   return (
     <Page
@@ -117,49 +118,10 @@ function OrganizationDetail() {
           onDelete={(id) => console.log("delete", id)}
         />
       </Card>
-      {/* <Card>
-        <MultiSelect
-          options={[
-            { value: "fh", label: "Funeral Home" },
-            { value: "log", label: "Logistics services" },
-            { value: "burial", label: "Burial care Contractor" },
-          ]}
-          value={values}
-          onChange={setValues}
-          placeholder="Select company types"
-          id="company-types"
-        />
-        <TextField placeholder="Input text" />
-        <Select
-          options={[
-            { value: "sp", label: "Sole Proprietorship" },
-            { value: "pa", label: "Partnership" },
-            { value: "llc", label: "Limited Liability Company" },
-          ]}
-          value={value}
-          onChange={setValue}
-          id="business-entity"
-        />
-      </Card> */}
-      <Dialog
-        open={openDeleteModal}
-        onClose={toggleDeleteModal}
-        title="Remove the Organization?"
-        actions={
-          <>
-            <Button variant="outline" label="No" onClick={toggleDeleteModal} />
-            <Button
-              variant="filled"
-              label="Yes, remove"
-              onClick={() => {
-                /* call delete */
-              }}
-            />
-          </>
-        }
-      >
-        Are you sure you want to remove this Organization?
-      </Dialog>
+      <DeleteOrganization
+        openDeleteModal={openDeleteModal}
+        setOpenDeleteModal={setOpenDeleteModal}
+      />
       <EditOrganizationName
         openEditModal={openEditModal}
         setOpenEditModal={setOpenEditModal}

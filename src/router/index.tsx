@@ -11,18 +11,16 @@ import { Sidebar } from "../components/Sidebar/Sidebar";
 import OrganizationDetailsPage from "../pages/OrganizationDetail";
 import Contractor from "../icons/Contractor";
 import Account from "../icons/Account";
-
+import { MOCK_ORGANIZATION_ID } from "../config";
 
 export const router = createBrowserRouter([
-  // Public-only tree (login)
   {
     element: <PublicOnly />,
     children: [{ path: "/login", element: <LoginPage /> }],
   },
 
-  // Protected tree
   {
-    element: <RequireAuth />, // everything under here needs auth
+    element: <RequireAuth />,
     children: [
       {
         element: (
@@ -35,7 +33,7 @@ export const router = createBrowserRouter([
                     id: "org",
                     icon: <Company />,
                     ariaLabel: "Organizations",
-                    to: "/",
+                    to: `/${MOCK_ORGANIZATION_ID}`,
                   },
                   {
                     id: "search",
@@ -60,7 +58,7 @@ export const router = createBrowserRouter([
           </AppShell>
         ),
         children: [
-          { index: true, path: "/", element: <OrganizationDetailsPage /> },
+          { index: true, path: "/:id", element: <OrganizationDetailsPage /> },
 
           { path: "*", element: <h1>Page is not found</h1> },
         ],

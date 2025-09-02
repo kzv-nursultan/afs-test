@@ -73,6 +73,29 @@ export class OrganizationStore {
       });
     }
   }
+
+  async deleteOrganization() {
+    if (!this.organization) return;
+    this.loading = true;
+    this.error = null;
+
+    try {
+      await http.delete<Organization>(`/companies/${this.organization.id}`);
+      runInAction(() => {
+        this.organization = null;
+      });
+      toast.success("Organization deleted");
+    } catch {
+      runInAction(() => {
+        this.error = "Failed to delete organization";
+      });
+      toast.error(this.error);
+    } finally {
+      runInAction(() => {
+        this.loading = false;
+      });
+    }
+  }
 }
 
 export const organizationStore = new OrganizationStore();
