@@ -10,7 +10,7 @@
   padding: $space-10 $space-12;
   border-radius: $radius-8;
   border: 1px solid $border-weak;
-  background: #fff;
+  background: $white;
   @include body-14;
 
   transition: border-color 0.15s ease, box-shadow 0.15s ease;

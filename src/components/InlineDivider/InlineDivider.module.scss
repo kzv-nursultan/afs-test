@@ -2,14 +2,15 @@
 .inline-divider {
   display: inline-flex;
   align-items: center;
-  column-gap: 12px; /* overridden by inline style */
+  column-gap: 12px;
 }
 
-/* Elements */
-.inline-divider__part { color: inherit; }     /* inherit value typography */
+.inline-divider__part {
+  color: inherit;
+}
 
 .inline-divider__sep {
-  color: #0000004D;                           /* your spec */
+  color: #0000004d;
   line-height: 1;
   user-select: none;
 }

@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
-import type { SetStateType } from "../../types/shared";
-import { useOrganizationStore } from "../../stores/useStores";
-import { Dialog } from "../../components/Dialog/Dialog";
-import { Button } from "../../components/Button/Button";
-import { TextField } from "../../components/TextField/TextField";
+import type { SetStateType } from "../../../types/shared";
+import { useOrganizationStore } from "../../../stores/useStores";
+import { Dialog } from "../../../components/Dialog/Dialog";
+import { Button } from "../../../components/Button/Button";
+import { TextField } from "../../../components/TextField/TextField";
 import toast from "react-hot-toast";
+import s from "./EditOrganizationName.module.scss";
 
 interface Props {
   openEditModal: boolean;
   setOpenEditModal: SetStateType<boolean>;
 }
-
 
 function EditOrganizationNameBase({ openEditModal, setOpenEditModal }: Props) {
   const org = useOrganizationStore();
@@ -62,17 +62,22 @@ function EditOrganizationNameBase({ openEditModal, setOpenEditModal }: Props) {
         </>
       }
     >
-      <TextField
-        value={name}
-        onChange={(e) => setName(e.currentTarget.value)}
-        placeholder="Organization name"
-        aria-invalid={!!localError}
-      />
-      {localError && (
-        <div style={{ color: "#d92d20", marginTop: 6, fontSize: 12 }}>
-          {localError}
+      <div className={s["edit-org"]}>
+        <div className={s["edit-org__field"]}>
+          <TextField
+            value={name}
+            onChange={(e) => setName(e.currentTarget.value)}
+            placeholder="Organization name"
+            aria-invalid={!!localError}
+          />
         </div>
-      )}
+
+        {localError && (
+          <div className={s["edit-org__error"]} role="alert">
+            {localError}
+          </div>
+        )}
+      </div>
     </Dialog>
   );
 }
