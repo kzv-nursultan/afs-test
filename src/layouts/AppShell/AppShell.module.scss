@@ -17,6 +17,7 @@
     background: $white;
     box-shadow: 4px 0px 16px 0px #00000014;
     padding: 20px;
+    padding-bottom: 24px;
     position: sticky;
     top: 0;
     height: 100%;
@@ -26,7 +27,7 @@
   &__main {
     min-width: 0;
     overflow: auto;
-    padding: 40px 40px 40px 64px;
+    padding: 40px 40px 28px 64px;
     max-width: 720px;
     position: relative;
     width: 100%;

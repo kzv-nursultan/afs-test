@@ -190,7 +190,7 @@
 
 .btn--layout-nav {
   display: grid;
-  grid-template-columns: 24px 1fr 24px;
+  grid-template-columns: 16px 1fr 16px;
   align-items: center;
   padding-block: 0;         /* ← remove the 10px top/bottom padding only here */
   height: 40px;
@@ -199,8 +199,8 @@
 .btn--layout-nav .btn__icon--start {
   grid-column: 1;
   justify-self: start;
-  width: 24px;
-  height: 24px;
+  width: 16px;
+  height: 16px;
 }
 
 .btn--layout-nav .btn__label {

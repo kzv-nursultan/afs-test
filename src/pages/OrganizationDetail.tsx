@@ -5,7 +5,7 @@ import Edit from "../icons/Edit";
 import Trash from "../icons/Trash";
 import { useContactStore, useOrganizationStore } from "../stores/useStores";
 import { observer } from "mobx-react-lite";
-import EditOrganizationName from "../features/modals/EditOrganzationName";
+import EditOrganizationName from "../features/modals/EditOrganizationName/EditOrganzationName";
 import DeleteOrganization from "../features/modals/DeleteOrganization";
 import { useParams } from "react-router-dom";
 import EditContacts from "../features/edit/Contacts/EditContacts";
@@ -36,7 +36,7 @@ function OrganizationDetail() {
 
   const openDeleteDialog = () => setOpenDeleteModal(true);
   const openEditName = () => setOpenEditModal(true);
-  
+
   const toggleCompanyDetailsEdit = () => setShowDetails((prev) => !prev);
   const toggleContactDetailsEdit = () => setShowContacts((prev) => !prev);
 

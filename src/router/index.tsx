@@ -58,7 +58,8 @@ export const router = createBrowserRouter([
           </AppShell>
         ),
         children: [
-          { path: "/:id", element: <OrganizationDetailsPage /> },
+          { path: ":id", element: <OrganizationDetailsPage /> },
+          { path: "/search", element: <h1>Search page</h1> },
           { path: "*", element: <h1>Page is not found</h1> },
         ],
       },
