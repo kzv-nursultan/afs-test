@@ -3,7 +3,7 @@ import { Button } from "../components/Button/Button";
 import { Page } from "../components/Page/Page";
 import Edit from "../icons/Edit";
 import Trash from "../icons/Trash";
-import { useContactStore, useOrganizationStore } from "../stores/store-context";
+import { useContactStore, useOrganizationStore } from "../stores/useStores";
 import { observer } from "mobx-react-lite";
 import EditOrganizationName from "../features/modals/EditOrganzationName";
 import DeleteOrganization from "../features/modals/DeleteOrganization";

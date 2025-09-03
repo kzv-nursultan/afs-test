@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
 import type { SetStateType } from "../../types/shared";
-import { useOrganizationStore } from "../../stores/store-context";
+import { useOrganizationStore } from "../../stores/useStores";
 import { Dialog } from "../../components/Dialog/Dialog";
 import { Button } from "../../components/Button/Button";
 import { TextField } from "../../components/TextField/TextField";

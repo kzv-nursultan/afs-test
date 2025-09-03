@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import { useOrganizationStore } from "../../stores/store-context";
+import { useOrganizationStore } from "../../stores/useStores";
 import { Card } from "../../components/Card/Card";
 import { Button } from "../../components/Button/Button";
 import AddPhoto from "../../icons/AddPhoto";
@@ -20,7 +20,7 @@ function Photos() {
   };
 
   const showUploadImageModal = () => setOpenUploadPhoto(true);
-  console.log(org?.organization?.photos)
+  console.log(org?.organization?.photos);
   return (
     <>
       <Card

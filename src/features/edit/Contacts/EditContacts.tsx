@@ -3,7 +3,7 @@ import { Button } from "../../../components/Button/Button";
 import Check from "../../../icons/Check";
 import X from "../../../icons/X";
 import { observer } from "mobx-react-lite";
-import { useContactStore } from "../../../stores/store-context";
+import { useContactStore } from "../../../stores/useStores";
 import { DataList } from "../../../components/DataList/DataList";
 import { TextField } from "../../../components/TextField/TextField";
 import { formatUSPhoneIntl, normalizeUSDigits } from "../../utils/phone-format";

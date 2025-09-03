@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { useState } from "react";
-import { useOrganizationStore } from "../../stores/store-context";
+import { useOrganizationStore } from "../../stores/useStores";
 import { Dialog } from "../../components/Dialog/Dialog";
 import { Button } from "../../components/Button/Button";
 import ImagePicker from "../../components/ImagePicker/ImagePicker";

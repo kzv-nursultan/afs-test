@@ -2,7 +2,7 @@ import type { SetStateType } from "../../types/shared";
 import { Dialog } from "../../components/Dialog/Dialog";
 import { Button } from "../../components/Button/Button";
 import { observer } from "mobx-react-lite";
-import { useOrganizationStore } from "../../stores/store-context";
+import { useOrganizationStore } from "../../stores/useStores";
 import toast from "react-hot-toast";
 
 interface Props {

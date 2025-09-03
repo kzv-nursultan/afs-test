@@ -5,11 +5,11 @@ import { Button } from "../../../components/Button/Button";
 import { Eye } from "../../../icons/Eye";
 import { EyeOff } from "../../../icons/EyeOff";
 import { http } from "../../../api/client";
-import { useAuth } from "../../../auth/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { readAxiosHeader } from "../../utils/readAxiosHeader";
 import toast from "react-hot-toast";
 import { MOCK_ORGANIZATION_ID } from "../../../config";
+import { useAuth } from "../../../auth/useAuth";
 
 interface UserData {
   username: string;
@@ -75,7 +75,9 @@ export default function LoginForm() {
 
       const token = readAxiosHeader(res.headers, "authorization");
       if (!validateAndSaveToken(token, login)) return;
-      navigate(`/${MOCK_ORGANIZATION_ID}`);
+      navigate(`/${MOCK_ORGANIZATION_ID}`, {
+        replace: true,
+      });
     } catch (err) {
       console.error("Auth error", err);
       toast.error("Something went wrong, please try again later");
