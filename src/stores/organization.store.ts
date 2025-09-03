@@ -1,6 +1,12 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import type { Organization } from "../types/company";
-import { deleteOrganization, editOrganization, getOrganization } from "../api";
+import {
+  deleteOrganization,
+  deletePhoto,
+  editOrganization,
+  getOrganization,
+  uploadPhoto,
+} from "../api";
 import toast from "react-hot-toast";
 
 export class OrganizationStore {
@@ -12,12 +18,10 @@ export class OrganizationStore {
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  // computed
   get hasOrganization() {
     return !!this.organization;
   }
 
-  // actions
   setOrganization(org: Organization | null) {
     this.organization = org;
   }
@@ -83,6 +87,49 @@ export class OrganizationStore {
     } catch {
       runInAction(() => {
         this.error = "Failed to delete organization";
+      });
+      toast.error(this.error);
+    } finally {
+      runInAction(() => {
+        this.loading = false;
+      });
+    }
+  }
+
+  async removePhoto(name: string) {
+    const org = this.organization;
+    if (!org) return;
+    this.loading = true;
+    this.error = null;
+
+    try {
+      await deletePhoto(org.id, name);
+      runInAction(() => {
+        org.photos = (org.photos ?? []).filter((p) => p.name !== name);
+      });
+    } catch {
+      runInAction(() => {
+        this.error = "Failed to delete image";
+      });
+      toast.error(this.error);
+    } finally {
+      this.loading = false;
+    }
+  }
+
+  async addImage(file: File) {
+    const org = this.organization;
+    if (!org) return;
+    this.loading = true;
+    this.error = null;
+    try {
+      const photo = await uploadPhoto(file, org.id);
+      runInAction(() => {
+        (org.photos ??= []).push(photo);
+      });
+    } catch {
+      runInAction(() => {
+        this.error = "Failed to upload image";
       });
       toast.error(this.error);
     } finally {
