@@ -187,3 +187,40 @@
     height: 16px;
   }
 }
+
+.btn--layout-nav {
+  display: grid;
+  grid-template-columns: 24px 1fr 24px;
+  align-items: center;
+  padding-block: 0;         /* ← remove the 10px top/bottom padding only here */
+  height: 40px;
+}
+
+.btn--layout-nav .btn__icon--start {
+  grid-column: 1;
+  justify-self: start;
+  width: 24px;
+  height: 24px;
+}
+
+.btn--layout-nav .btn__label {
+  grid-column: 2;
+  justify-self: center;
+  text-align: center;
+}
+
+.btn--layout-nav::after {
+  content: "";
+  grid-column: 3;
+  width: 24px;
+  height: 1px;
+}
+
+.btn--layout-nav .btn__icon--end {
+  grid-column: 3;
+  justify-self: end;
+}
+
+.btn--layout-nav.btn--has-end::after {
+  display: none;
+}

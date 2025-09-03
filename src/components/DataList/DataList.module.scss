@@ -28,3 +28,17 @@
   align-self: center;
   margin: 0;
 }
+
+@media (max-width: 1080px) {
+  .data-list {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 8px;
+  }
+}
+
+@media (max-width: 470px) {
+  .data-list {
+    grid-template-columns: 1fr;
+    row-gap: 8px;
+  }
+}

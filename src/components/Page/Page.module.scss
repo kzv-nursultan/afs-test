@@ -5,11 +5,16 @@
   gap: 16px;
 }
 
-/* Header */
 .page__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
+}
+
+.page__back {
+  position: absolute;
+  left: -64px;
 }
 
 .page__title {
@@ -31,4 +36,16 @@
 .page__content {
   display: grid;
   gap: 16px;
+}
+
+@media (max-width: 1080px) {
+  .page__back {
+    display: none;
+  }
+}
+
+@media (max-width: 470px) {
+  .page__title {
+    font-size: 20px;
+  }
 }

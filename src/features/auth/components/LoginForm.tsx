@@ -9,6 +9,7 @@ import { useAuth } from "../../../auth/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { readAxiosHeader } from "../../utils/readAxiosHeader";
 import toast from "react-hot-toast";
+import { MOCK_ORGANIZATION_ID } from "../../../config";
 
 interface UserData {
   username: string;
@@ -74,10 +75,10 @@ export default function LoginForm() {
 
       const token = readAxiosHeader(res.headers, "authorization");
       if (!validateAndSaveToken(token, login)) return;
-      navigate("/");
+      navigate(`/${MOCK_ORGANIZATION_ID}`);
     } catch (err) {
       console.error("Auth error", err);
-      toast.error("Something went wrong, please try again later")
+      toast.error("Something went wrong, please try again later");
     } finally {
       setLoading(false);
     }

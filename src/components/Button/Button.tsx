@@ -2,6 +2,7 @@ import s from "./Button.module.scss";
 
 type Variant = "filled" | "outline" | "ghost" | "icon" | "filled-icon";
 type Size = "sm" | "md";
+type Layout = "default" | "nav";
 
 export function Button({
   label,
@@ -12,6 +13,7 @@ export function Button({
   block,
   disabled,
   ariaLabel,
+  layout = "default",
   ...rest
 }: {
   label?: string;
@@ -22,13 +24,18 @@ export function Button({
   block?: boolean;
   disabled?: boolean;
   ariaLabel?: string;
+  layout?: Layout;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>) {
+  const hasEndIcon = variant !== "icon" && !!icon && iconPosition === "end";
+
   const classes = [
     s["btn"],
     s[`btn--variant-${variant}`],
     s[`btn--size-${size}`],
     block ? s["btn--block"] : "",
     disabled ? s["btn--disabled"] : "",
+    layout === "nav" ? s["btn--layout-nav"] : "",
+    hasEndIcon ? s["btn--has-end"] : "",
   ]
     .filter(Boolean)
     .join(" ");

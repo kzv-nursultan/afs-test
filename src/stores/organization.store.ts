@@ -1,7 +1,12 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import type { Organization } from "../types/company";
-import { http } from "../api/client";
-import { getOrganization } from "../api";
+import {
+  deleteOrganization,
+  deletePhoto,
+  editOrganization,
+  getOrganization,
+  uploadPhoto,
+} from "../api";
 import toast from "react-hot-toast";
 
 export class OrganizationStore {
@@ -13,12 +18,10 @@ export class OrganizationStore {
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  // computed
   get hasOrganization() {
     return !!this.organization;
   }
 
-  // actions
   setOrganization(org: Organization | null) {
     this.organization = org;
   }
@@ -49,23 +52,86 @@ export class OrganizationStore {
     }
   }
 
-  // update and persist (PATCH), then update state
   async updateOrganization(patch: Partial<Organization>) {
     if (!this.organization) return;
     this.loading = true;
     this.error = null;
     try {
-      const res = await http.patch<Organization>(
-        `/organizations/${this.organization.id}`,
-        patch
-      );
+      const res = await editOrganization(patch, this.organization.id);
       runInAction(() => {
-        this.organization = res.data;
+        this.organization = res;
       });
     } catch {
       runInAction(() => {
         this.error = "Failed to update organization";
       });
+      toast.error(this.error);
+    } finally {
+      runInAction(() => {
+        this.loading = false;
+      });
+    }
+  }
+
+  async deleteOrganization() {
+    if (!this.organization) return;
+    this.loading = true;
+    this.error = null;
+
+    try {
+      await deleteOrganization(this.organization.id);
+      runInAction(() => {
+        this.organization = null;
+      });
+      toast.success("Organization deleted");
+    } catch {
+      runInAction(() => {
+        this.error = "Failed to delete organization";
+      });
+      toast.error(this.error);
+    } finally {
+      runInAction(() => {
+        this.loading = false;
+      });
+    }
+  }
+
+  async removePhoto(name: string) {
+    const org = this.organization;
+    if (!org) return;
+    this.loading = true;
+    this.error = null;
+
+    try {
+      await deletePhoto(org.id, name);
+      runInAction(() => {
+        org.photos = (org.photos ?? []).filter((p) => p.name !== name);
+      });
+    } catch {
+      runInAction(() => {
+        this.error = "Failed to delete image";
+      });
+      toast.error(this.error);
+    } finally {
+      this.loading = false;
+    }
+  }
+
+  async addImage(file: File) {
+    const org = this.organization;
+    if (!org) return;
+    this.loading = true;
+    this.error = null;
+    try {
+      const photo = await uploadPhoto(file, org.id);
+      runInAction(() => {
+        (org.photos ??= []).push(photo);
+      });
+    } catch {
+      runInAction(() => {
+        this.error = "Failed to upload image";
+      });
+      toast.error(this.error);
     } finally {
       runInAction(() => {
         this.loading = false;

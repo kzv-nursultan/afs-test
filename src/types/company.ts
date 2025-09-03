@@ -1,7 +1,11 @@
 import type { ISODateTimeString } from "./shared";
 
-type BusinessEntity = string | "Partnership";
 type Status = "active" | "disabled" | string;
+
+export type BusinessEntity =
+  | "Partnership"
+  | "Sole Proprietorship"
+  | "Limited Liability Company";
 
 export type OrganizationTypes =
   | "funeral_home"
@@ -14,6 +18,7 @@ export interface OrganizationPhoto {
   thumbpath: string;
   createdAt: ISODateTimeString;
 }
+
 
 export interface Organization {
   id: string;

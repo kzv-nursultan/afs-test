@@ -42,6 +42,7 @@ export function Sidebar({
                 icon={it.icon}
                 onClick={it.onClick}
                 block
+                layout="nav"
               />
             </li>
           ))}

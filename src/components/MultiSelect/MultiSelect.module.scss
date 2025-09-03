@@ -2,14 +2,18 @@
 
 .multi-select {
   @include form.select-base;
+  height: auto;
 }
 
 .multi-select__control {
   @include form.control-base;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* Use start + auto margin instead of space-between */
+  justify-content: flex-start;
   gap: $space-8;
+  overflow: hidden;
+  text-align: left;
   width: 100%;
 }
 
@@ -18,9 +22,14 @@
 }
 
 .multi-select__value {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: block;
+  width: 100px;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  text-align: left;
 }
 
 .multi-select__value--placeholder {
@@ -29,6 +38,7 @@
 
 .multi-select__chevron {
   @include form.chevron-box;
+  flex: 0 0 auto;
 }
 
 .multi-select__chevron-icon {

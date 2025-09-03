@@ -1,0 +1,30 @@
+.image-picker {
+  display: grid;
+  row-gap: 12px;
+  text-align: center;
+}
+
+
+.image-picker__button {
+  justify-self: center;
+}
+
+.image-picker__preview {
+  width: 144px;
+  height: 108px;
+  border-radius: 10px;
+  object-fit: cover;
+  justify-self: center;
+}
+
+.image-picker__error {
+  color: #d92d20;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: 0.2px;
+  justify-self: center;
+}
+
+.image-picker__input {
+  display: none;
+}
