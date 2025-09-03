@@ -5,11 +5,11 @@ import { Button } from "../../../components/Button/Button";
 import { Eye } from "../../../icons/Eye";
 import { EyeOff } from "../../../icons/EyeOff";
 import { http } from "../../../api/client";
-import { useAuth } from "../../../auth/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { readAxiosHeader } from "../../utils/readAxiosHeader";
 import toast from "react-hot-toast";
 import { MOCK_ORGANIZATION_ID } from "../../../config";
+import { useAuth } from "../../../auth/useAuth";
 
 interface UserData {
   username: string;
