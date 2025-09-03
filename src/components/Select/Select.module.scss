@@ -31,7 +31,7 @@
   @include form.chevron-box;
 }
 .select__chevron-icon {
-  @include form.chevron-icon
+  @include form.chevron-icon;
 }
 .select__chevron--up .select__chevron-icon {
   transform: rotate(90deg);
@@ -41,7 +41,7 @@
   @include form.popover-card;
 }
 .select__list {
-  @include form.select-list
+  @include form.select-list;
 }
 
 .select__option {
@@ -55,7 +55,7 @@
   @include body-13;
 }
 .select__option--active {
-  background: #f5f5f5;
+  background: $icon-hover-bg;
 }
 .select__option--selected {
   background: #0000000d;

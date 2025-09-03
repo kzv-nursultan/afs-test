@@ -27,30 +27,32 @@ $radius-8: $space-8;
 $radius-4: $space-4;
 $inset-md: $space-16 $space-8;
 
-$border-weak:  #00000033;
-$border-strong:#00000080;
-$text-900:     #3B3B3B;
-$text-700:     #000000CC;
-$text-500:     #00000066;
-$focus:        #35CDFD;
+$border-weak: $black-20;
+$border-strong: #00000080;
+$text-900: $grey-regular;
+$text-700: #000000cc;
+$text-500: $black-40;
+$focus: #35cdfd;
 
 $panel-bg: $white;
 $panel-shadow-1: 0px 2px 4px 0px #00000029;
-$panel-shadow-2: 0px -1px 4px 0px #0000000A;
+$panel-shadow-2: 0px -1px 4px 0px #0000000a;
 
 @mixin body-14 {
-  font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial,
+    sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
-  letter-spacing: .3px;
+  letter-spacing: 0.3px;
   color: $text-700;
 }
 @mixin body-13 {
-  font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial,
+    sans-serif;
   font-weight: 400;
   font-size: 13px;
   line-height: 20px;
-  letter-spacing: .25px;
+  letter-spacing: 0.25px;
   color: $text-700;
 }
