@@ -33,3 +33,10 @@
   display: grid;
   gap: 12px;
 }
+
+@media (max-width: 1080px) {
+  .card__actions {
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+}
