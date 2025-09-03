@@ -10,7 +10,8 @@ import { RouterProvider } from "react-router-dom";
 import { router } from "./router/index.tsx";
 import { AuthProvider } from "./auth/AuthContext.tsx";
 import { Toaster } from "react-hot-toast";
-import { StoresProvider } from "./stores/store-context.tsx";
+import { StoresProvider } from "./stores/stores-provider.tsx";
+
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

@@ -6,7 +6,6 @@ import type {
   OrganizationTypes,
 } from "../../../types/company";
 import { CompanyTypeMap } from "../../utils/companyTypeMapper";
-import { useOrganizationStore } from "../../../stores/store-context";
 import { Card } from "../../../components/Card/Card";
 import { Button } from "../../../components/Button/Button";
 import { DataList } from "../../../components/DataList/DataList";
@@ -20,6 +19,7 @@ import DateField from "../../../components/DateField/DatePickerTextField";
 import { ymdToISO } from "../../utils/isoDateFormatter";
 import type { InputChangeEvent, ToggleEditProps } from "../../../types/shared";
 import toast from "react-hot-toast";
+import { useOrganizationStore } from "../../../stores/useStores";
 
 type EntityItem = { value: BusinessEntity; label: BusinessEntity };
 type OrganizationPatch = Partial<Omit<Organization, "contract">> & {

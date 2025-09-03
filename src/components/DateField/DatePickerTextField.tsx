@@ -1,7 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useRef } from "react";
 import s from "./DatePickerTextField.module.scss";
-import { formatIsoToDMY, isoToYMD } from "../../features/utils/isoDateFormatter";
+import {
+  formatIsoToDMY,
+  isoToYMD,
+} from "../../features/utils/isoDateFormatter";
 
 type Props = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -25,13 +27,12 @@ export default function DatePickerTextField({
     const el = inputRef.current;
     if (!el || disabled) return;
 
-    if (typeof (el as any).showPicker === "function") {
-      (el as any).showPicker();
-      return;
+    if (typeof el.showPicker === "function") {
+      el.showPicker();
+    } else {
+      el.focus();
+      el.click();
     }
-
-    el.focus();
-    el.click();
   };
 
   return (
@@ -59,7 +60,7 @@ export default function DatePickerTextField({
         value={isoToYMD(value || "")}
         onChange={onChange}
         disabled={disabled}
-        onClick={() => openPicker()}
+        onClick={openPicker}
         {...rest}
       />
     </div>

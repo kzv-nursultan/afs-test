@@ -2,8 +2,8 @@ import type { SetStateType } from "../../types/shared";
 import { Dialog } from "../../components/Dialog/Dialog";
 import { Button } from "../../components/Button/Button";
 import { observer } from "mobx-react-lite";
-import { useOrganizationStore } from "../../stores/store-context";
 import { useNavigate } from "react-router-dom";
+import { useOrganizationStore } from "../../stores/useStores";
 
 interface Props {
   openDeleteModal: boolean;

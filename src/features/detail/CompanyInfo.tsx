@@ -5,9 +5,9 @@ import { DataList } from "../../components/DataList/DataList";
 import { InlineDivider } from "../../components/InlineDivider/InlineDivider";
 import { formatIsoToDMY } from "../utils/isoDateFormatter";
 import { CompanyTypeMap } from "../utils/companyTypeMapper";
-import { useOrganizationStore } from "../../stores/store-context";
 import Edit from "../../icons/Edit";
 import type { ToggleEditProps } from "../../types/shared";
+import { useOrganizationStore } from "../../stores/useStores";
 
 function CompanyBase({ toggleEdit }: ToggleEditProps) {
   const org = useOrganizationStore();
