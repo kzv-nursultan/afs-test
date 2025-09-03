@@ -47,7 +47,7 @@ export const router = createBrowserRouter([
             sidebar={
               <Sidebar
                 items={[
-                  { label: "Organizations", icon: <Company />, active: true},
+                  { label: "Organizations", icon: <Company />, active: true },
                   { label: "Contractors", icon: <Contractor /> },
                   { label: "Clients", icon: <Account /> },
                 ]}
@@ -58,8 +58,7 @@ export const router = createBrowserRouter([
           </AppShell>
         ),
         children: [
-          { index: true, path: "/:id", element: <OrganizationDetailsPage /> },
-
+          { path: "/:id", element: <OrganizationDetailsPage /> },
           { path: "*", element: <h1>Page is not found</h1> },
         ],
       },

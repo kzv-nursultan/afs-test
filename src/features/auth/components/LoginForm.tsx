@@ -75,7 +75,9 @@ export default function LoginForm() {
 
       const token = readAxiosHeader(res.headers, "authorization");
       if (!validateAndSaveToken(token, login)) return;
-      navigate(`/${MOCK_ORGANIZATION_ID}`);
+      navigate(`/${MOCK_ORGANIZATION_ID}`, {
+        replace: true,
+      });
     } catch (err) {
       console.error("Auth error", err);
       toast.error("Something went wrong, please try again later");
