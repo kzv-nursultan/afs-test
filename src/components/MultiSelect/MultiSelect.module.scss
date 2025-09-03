@@ -23,9 +23,9 @@
 
 .multi-select__value {
   flex: 1 1 auto;
-  min-width: 0;       /* <-- required for ellipsis inside flex */
+  min-width: 0;
   display: block;
-  width: 100px;     /* ellipsis is more reliable block-level */
+  width: 100px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

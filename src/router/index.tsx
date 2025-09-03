@@ -47,7 +47,7 @@ export const router = createBrowserRouter([
             sidebar={
               <Sidebar
                 items={[
-                  { label: "Organizations", icon: <Company /> },
+                  { label: "Organizations", icon: <Company />, active: true},
                   { label: "Contractors", icon: <Contractor /> },
                   { label: "Clients", icon: <Account /> },
                 ]}
