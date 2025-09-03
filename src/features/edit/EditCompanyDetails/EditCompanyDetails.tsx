@@ -18,7 +18,8 @@ import X from "../../../icons/X";
 import { FormInline } from "../../../components/FormInline/FormInline";
 import DateField from "../../../components/DateField/DatePickerTextField";
 import { ymdToISO } from "../../utils/isoDateFormatter";
-import type { ToggleEditProps } from "../../../types/shared";
+import type { InputChangeEvent, ToggleEditProps } from "../../../types/shared";
+import toast from "react-hot-toast";
 
 type EntityItem = { value: BusinessEntity; label: BusinessEntity };
 type OrganizationPatch = Partial<Omit<Organization, "contract">> & {
@@ -50,7 +51,6 @@ function CompanyDetailsBase({ toggleEdit }: ToggleEditProps) {
   const org = useOrganizationStore();
   const [patch, setPatch] = useState<OrganizationPatch>(initialPatchData);
 
-  // hydrate patch from store
   useEffect(() => {
     if (org.organization) {
       const o = org.organization;
@@ -62,51 +62,36 @@ function CompanyDetailsBase({ toggleEdit }: ToggleEditProps) {
     }
   }, [org.organization]);
 
-  // generic top-level setter
   const setField = <K extends keyof Organization>(
     key: K,
     val: Organization[K]
   ) => setPatch((prev) => ({ ...prev, [key]: val }));
 
-  // contract setter (uses input name)
-  const patchContractSetter = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target; // name: "no" | "issue_date"
+  const patchContractSetter = (e: InputChangeEvent, isDate?: boolean) => {
+    const { name, value } = e.target;
     setPatch((prev) => ({
       ...prev,
-      contract: { ...(prev.contract ?? {}), [name]: value },
+      contract: {
+        ...(prev.contract ?? {}),
+        [name]: isDate ? ymdToISO(value) : value,
+      },
     }));
   };
 
-  // SUBMIT (Save)
   const onSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    console.log({
+
+    const updatedData = {
       contract: {
         no: patch.contract?.no ?? "",
         issue_date: patch.contract?.issue_date ?? "",
       },
       businessEntity: patch.businessEntity!,
       type: patch.type ?? [],
-    });
-    // await org.updateOrganization({
-    //   contract: {
-    //     no: patch.contract?.no ?? "",
-    //     issue_date: patch.contract?.issue_date ?? "",
-    //   },
-    //   businessEntity: patch.businessEntity!,
-    //   type: patch.type ?? [],
-    // });
-    // maybe toast / close modal etc.
-  };
-
-  const onReset: React.FormEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault(); // don’t wipe fields to default; we control reset manually
-    const o = org.organization;
-    if (!o) return;
-    setPatch({
-      contract: { ...o.contract },
-      businessEntity: o.businessEntity,
-      type: o.type,
+    };
+    await org.updateOrganization(updatedData).then(() => {
+      toast.success("Company details updated successfully ");
+      toggleEdit();
     });
   };
 
@@ -128,13 +113,13 @@ function CompanyDetailsBase({ toggleEdit }: ToggleEditProps) {
             label="Cancel"
             icon={<X />}
             type="button"
-            form={FORM_ID}
             onClick={toggleEdit}
+            disabled={org.loading}
           />
         </>
       }
     >
-      <form id={FORM_ID} onSubmit={onSubmit} onReset={onReset} noValidate>
+      <form id={FORM_ID} onSubmit={onSubmit} noValidate>
         <DataList
           items={[
             {
@@ -153,15 +138,7 @@ function CompanyDetailsBase({ toggleEdit }: ToggleEditProps) {
                     <DateField
                       value={patch.contract?.issue_date}
                       name="issue_date"
-                      onChange={(e) => {
-                        setPatch((prev) => ({
-                          ...prev,
-                          contract: {
-                            ...prev.contract,
-                            issue_date: ymdToISO(e.target.value),
-                          },
-                        }));
-                      }}
+                      onChange={(e) => patchContractSetter(e, true)}
                     />
                   }
                 />

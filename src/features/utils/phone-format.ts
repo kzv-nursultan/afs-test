@@ -1,26 +1,34 @@
-export function formatUSPhoneIntl(input: string): string {
+// keep only digits (optionally allow leading 1)
+export function normalizeUSDigits(input: string): string {
   const digits = input.replace(/\D/g, "");
+  // allow max 11, with optional leading country '1'
+  if (digits.startsWith("1")) return digits.slice(0, 11);
+  return digits.slice(0, 10);
+}
+
+// format for display as the user types/deletes
+export function formatUSPhoneIntl(digits: string): string {
+  const only = normalizeUSDigits(digits);
+  const hasCountry = only.startsWith("1");
   const country = "1";
-  let rest = "";
+  const rest = hasCountry ? only.slice(1) : only;
 
-  if (digits.length === 11 && digits.startsWith("1")) {
-    rest = digits.slice(1);
-  } else if (digits.length === 10) {
-    rest = digits;
-  } else if (digits.length > 11 && digits.startsWith("1")) {
-    rest = digits.slice(1, 11);
-  } else if (digits.length > 10) {
-    rest = digits.slice(0, 10);
-  } else {
-    return input;
-  }
+  let out = `+${country}`;
+  if (rest.length > 0) out += " " + rest.slice(0, 3);
+  if (rest.length > 3) out += " " + rest.slice(3, 6);
+  if (rest.length > 6) out += " " + rest.slice(6, 10);
 
-  const area = rest.slice(0, 3);
-  const central = rest.slice(3, 6);
-  const line = rest.slice(6, 10);
+  // extension if someone pasted longer (normalize guards this, but keep for safety)
+  if (hasCountry && only.length > 11) out += " x" + only.slice(11);
+  if (!hasCountry && only.length > 10) out += " x" + only.slice(10);
 
-  const ext =
-    digits.length > 11 && digits.startsWith("1") ? digits.slice(11) : "";
+  return out;
+}
 
-  return `+${country} ${area} ${central} ${line}${ext ? " x" + ext : ""}`;
+// useful if you need to send to API in E.164 later
+export function toE164FromDigits(digits: string): string | undefined {
+  const only = normalizeUSDigits(digits);
+  const rest = only.startsWith("1") ? only.slice(1) : only;
+  if (rest.length !== 10) return undefined;
+  return `+1${rest}`;
 }

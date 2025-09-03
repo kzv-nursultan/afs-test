@@ -57,7 +57,6 @@ export class OrganizationStore {
       runInAction(() => {
         this.organization = res;
       });
-      toast.success("Organization name successfully changed");
     } catch {
       runInAction(() => {
         this.error = "Failed to update organization";

@@ -6,9 +6,10 @@ import { observer } from "mobx-react-lite";
 import { useContactStore } from "../../../stores/store-context";
 import { DataList } from "../../../components/DataList/DataList";
 import { TextField } from "../../../components/TextField/TextField";
-import { formatUSPhoneIntl } from "../../utils/phone-format";
+import { formatUSPhoneIntl, normalizeUSDigits } from "../../utils/phone-format";
 import { useEffect, useState } from "react";
 import type { InputChangeEvent, ToggleEditProps } from "../../../types/shared";
+import toast from "react-hot-toast";
 
 const FORM_ID = "contact-form";
 
@@ -44,6 +45,25 @@ function ContactsBase({ toggleEdit }: ToggleEditProps) {
     }));
   };
 
+  const onSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+    if (!contact) {
+      toast.error("Contact is not found");
+      return;
+    }
+    const [firstname, lastname, ...rest] = patch.fullname.split(" ");
+    const updatedContact = {
+      firstname,
+      lastname: rest.length ? `${lastname} ${rest.join(" ")}` : lastname,
+      phone: normalizeUSDigits(patch.phone),
+      email: patch.email,
+    };
+    await cont.updateContact(updatedContact, contact.id).then(() => {
+      toast.success("Contact updated successfully");
+      toggleEdit();
+    });
+  };
+
   return (
     <Card
       title="Contacts"
@@ -54,8 +74,8 @@ function ContactsBase({ toggleEdit }: ToggleEditProps) {
             label="Save changes"
             icon={<Check />}
             type="submit"
-            // form={FORM_ID}
-            // disabled={org.loading}
+            form={FORM_ID}
+            disabled={cont.loading}
           />
           <Button
             variant="ghost"
@@ -63,11 +83,12 @@ function ContactsBase({ toggleEdit }: ToggleEditProps) {
             icon={<X />}
             type="button"
             onClick={toggleEdit}
+            disabled={cont.loading}
           />
         </>
       }
     >
-      <form id={FORM_ID}>
+      <form id={FORM_ID} onSubmit={onSubmit} noValidate>
         <DataList
           items={[
             {

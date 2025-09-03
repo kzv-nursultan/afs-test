@@ -5,6 +5,7 @@ import { useOrganizationStore } from "../../stores/store-context";
 import { Dialog } from "../../components/Dialog/Dialog";
 import { Button } from "../../components/Button/Button";
 import { TextField } from "../../components/TextField/TextField";
+import toast from "react-hot-toast";
 
 interface Props {
   openEditModal: boolean;
@@ -38,6 +39,7 @@ function EditOrganizationNameBase({ openEditModal, setOpenEditModal }: Props) {
       return;
     }
     await org.updateOrganization({ name: next });
+    toast.success("Organization name successfully changed");
     toggle();
   };
 
